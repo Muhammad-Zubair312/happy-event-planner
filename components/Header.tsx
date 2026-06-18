@@ -11,7 +11,6 @@ import { supabase } from '@/lib/supabase';
 const BASE_NAV_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'Shop', href: '/products' },
-  //{ label: 'Categories', href: '/products' },
   { label: 'Custom Orders', href: '/products?category=custom-orders' },
   { label: 'Track Order', href: '/orders' },
 ];
@@ -33,52 +32,15 @@ export default function Header() {
   const { totalItems: cartCount } = useCart();
   const router = useRouter();
 
-  // useEffect(() => {
-  //   async function fetchRole() {
-  //     const { data: { user } } = await supabase.auth.getUser();
-  //     console.log('🔐 Current user ID:', user?.id ?? 'NOT LOGGED IN');
-
-  //     if (!user) {
-  //       setIsLoggedIn(false);
-  //       setIsAdmin(false);
-  //       return;
-  //     }
-
-  //     setIsLoggedIn(true);
-
-  //     const { data: profile, error } = await supabase
-  //       .from('profiles')
-  //       .select('role')
-  //       .eq('id', user.id)
-  //       .single();
-
-  //     console.log('👤 Profile data:', profile);
-  //     console.log('❌ Profile error:', error);
-
-  //     setIsAdmin(profile?.role === 'admin');
-  //   }
-
-  //   fetchRole();
-
-  //   const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-  //     console.log('🔄 Auth state changed, session:', session?.user?.id ?? 'null');
-  //     fetchRole();
-  //   });
-
-  //   return () => subscription.unsubscribe();
-  // }, []);
-
   useEffect(() => {
-  function readRoleFromCookie() {
-    const match = document.cookie.match(/(?:^|; )user_role=([^;]*)/);
-    const role = match ? decodeURIComponent(match[1]) : null;
-    setIsLoggedIn(!!role);
-    setIsAdmin(role === 'admin');
-  }
-
-  readRoleFromCookie();
-}, []);
-
+    function readRoleFromCookie() {
+      const match = document.cookie.match(/(?:^|; )user_role=([^;]*)/);
+      const role = match ? decodeURIComponent(match[1]) : null;
+      setIsLoggedIn(!!role);
+      setIsAdmin(role === 'admin');
+    }
+    readRoleFromCookie();
+  }, []);
 
   const navLinks = isAdmin ? [...BASE_NAV_LINKS, ADMIN_LINK] : BASE_NAV_LINKS;
 
@@ -106,11 +68,13 @@ export default function Header() {
       }}
     >
       <div className="container" style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.875rem 1rem' }}>
+
+        {/* ✅ FIXED: removed display:'none' — CSS handles hide/show via data-mobile-only */}
         <button
           aria-label="Toggle menu"
           onClick={() => setMobileOpen((v) => !v)}
           className="btn btn-ghost btn-sm"
-          style={{ display: 'none', padding: '0.5rem' }}
+          style={{ padding: '0.5rem' }}
           data-mobile-only
         >
           <MenuIcon open={mobileOpen} />
@@ -126,7 +90,7 @@ export default function Header() {
           />
         </Link>
 
-        <nav style={{ display: 'none', gap: '1.5rem', marginLeft: '1.5rem' }} data-desktop-only>
+        <nav style={{ gap: '1.5rem', marginLeft: '1.5rem' }} data-desktop-only>
           {navLinks.map((link) => (
             <Link
               key={link.label}
@@ -135,7 +99,6 @@ export default function Header() {
                 fontSize: 'var(--text-sm)',
                 fontWeight: 600,
                 color: 'var(--color-text-primary)',
-                //color: link.label === 'Admin' ? 'var(--color-brand-purple)' : 'var(--color-text-primary)',
                 textDecoration: 'none',
                 whiteSpace: 'nowrap',
               }}
@@ -147,9 +110,10 @@ export default function Header() {
 
         <div style={{ flex: 1 }} />
 
+        {/* ✅ FIXED: removed display:'none' from inline style — data-desktop-only CSS handles it */}
         <form
           action="/products"
-          style={{ display: 'none', alignItems: 'center', position: 'relative', width: '260px' }}
+          style={{ alignItems: 'center', position: 'relative', width: '260px' }}
           data-desktop-only
         >
           <input
@@ -169,17 +133,23 @@ export default function Header() {
           </button>
         </form>
 
+        {/* ✅ FIXED: removed display:'none' */}
         <button
           aria-label="Search"
           onClick={() => setSearchOpen((v) => !v)}
           className="btn btn-ghost btn-sm"
-          style={{ display: 'none', padding: '0.5rem' }}
+          style={{ padding: '0.5rem' }}
           data-mobile-only
         >
           <SearchIcon />
         </button>
 
-        <Link href="/cart" aria-label="Cart" className="btn btn-ghost btn-sm" style={{ position: 'relative', padding: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+        <Link
+          href="/cart"
+          aria-label="Cart"
+          className="btn btn-ghost btn-sm"
+          style={{ position: 'relative', padding: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}
+        >
           <CartIcon />
           <span style={{ fontSize: 'var(--text-sm)', fontWeight: 600 }} data-desktop-only>Cart</span>
           {cartCount > 0 && (
@@ -206,6 +176,7 @@ export default function Header() {
           )}
         </Link>
 
+        {/* ✅ FIXED: removed display:'none' from inline style */}
         <Button
           as="a"
           href={buildWhatsAppURL()}
@@ -213,16 +184,17 @@ export default function Header() {
           onClick={handleWhatsAppClick}
           variant="whatsapp"
           size="sm"
-          style={{ display: 'none' }}
+          style={{}}
           data-desktop-only
         >
           <WhatsAppIcon size={18} style={{ marginRight: '0.4rem', verticalAlign: 'middle' }} /> WhatsApp
         </Button>
 
+        {/* ✅ FIXED: removed display:'none' from inline style */}
         <button
           onClick={handleLogout}
           className="btn btn-ghost btn-sm"
-          style={{ display: 'none', fontSize: 'var(--text-sm)', fontWeight: 600, padding: '0.4rem 0.75rem' }}
+          style={{ fontSize: 'var(--text-sm)', fontWeight: 600, padding: '0.4rem 0.75rem' }}
           data-desktop-only
         >
           Logout
@@ -271,7 +243,6 @@ export default function Header() {
                   fontSize: 'var(--text-base)',
                   fontWeight: 600,
                   color: 'var(--color-text-primary)',
-                  //color: link.label === 'Admin' ? 'var(--color-brand-purple)' : 'var(--color-text-primary)',
                   textDecoration: 'none',
                   borderBottom: '1px solid var(--color-border-soft)',
                 }}
@@ -285,7 +256,6 @@ export default function Header() {
               target="_blank"
               onClick={handleWhatsAppClick}
               variant="whatsapp"
-              className="mt-4"
               style={{ marginTop: '1rem' }}
             >
               <WhatsAppIcon size={18} style={{ marginRight: '0.4rem', verticalAlign: 'middle' }} /> Order via WhatsApp
