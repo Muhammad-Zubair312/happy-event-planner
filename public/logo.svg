@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 72" fill="none">
+  <defs>
+    <linearGradient id="ballG" x1="0%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#9B5CF6"/>
+      <stop offset="100%" stop-color="#6D28D9"/>
+    </linearGradient>
+  </defs>
+
+  <!-- BALLOON — all coords positive, fits within x:4..58, y:2..70 -->
+  <!-- Body: tall rounded teardrop centered at x=32, top y=4 -->
+  <path d="M32,4 C48,4 58,16 58,32 C58,48 49,60 38,65 C35,66 29,66 26,65 C15,60 6,48 6,32 C6,16 16,4 32,4 Z"
+        fill="url(#ballG)"/>
+
+  <!-- Specular highlight top-left -->
+  <path d="M14,12 C14,7 19,4 24,5 C28,6 30,9 29,13 C28,17 24,18 20,17 C16,16 14,18 14,12 Z"
+        fill="white" opacity="0.40"/>
+
+  <!-- Edge depth sheen -->
+  <path d="M10,22 C8,28 8,36 10,44 C8,36 8,28 10,22 Z"
+        fill="white" opacity="0.18"/>
+
+  <!-- Knot — two small curved lobes -->
+  <path d="M27,65 C24,68 23,72 26,73 C29,74 31,71 31,68" fill="#5B21B6"/>
+  <path d="M35,65 C38,68 39,72 36,73 C33,74 31,71 31,68" fill="#5B21B6"/>
+
+  <!-- Gold star top-right of balloon -->
+  <path d="M52,2 L53.4,6.2 L58,6.2 L54.5,8.8 L55.9,13 L52,10.3 L48.1,13 L49.5,8.8 L46,6.2 L50.6,6.2 Z"
+        fill="#F59E0B"/>
+
+  <!-- Tiny confetti dots -->
+  <circle cx="3"  cy="38" r="2.2" fill="#F472B6" opacity="0.75"/>
+  <circle cx="60" cy="44" r="1.8" fill="#FBBF24" opacity="0.70"/>
+  <circle cx="2"  cy="26" r="1.4" fill="#34D399"  opacity="0.65"/>
+
+  <!-- WORDMARK — starts at x=68, all within viewBox height 72 -->
+  <!-- "Happy" bold purple, baseline y=40 -->
+  <text x="68" y="40"
+        font-family="'Segoe UI Semibold','Helvetica Neue',Arial,sans-serif"
+        font-size="32" font-weight="700"
+        fill="#6D28D9" letter-spacing="-0.5">Happy</text>
+
+  <!-- Teal accent rule, sits under "Happy" -->
+  <rect x="68" y="44" width="36" height="2" rx="1" fill="#0D9488"/>
+
+  <!-- "EVENT PLANNER" tracked out, baseline y=62 -->
+  <text x="68" y="62"
+        font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif"
+        font-size="13" font-weight="400"
+        fill="#374151" letter-spacing="3">EVENT PLANNER</text>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 72" fill="none">
+  <defs>
+    <linearGradient id="ballGD" x1="0%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#C4B5FD"/>
+      <stop offset="100%" stop-color="#8B5CF6"/>
+    </linearGradient>
+  </defs>
+
+  <path d="M32,4 C48,4 58,16 58,32 C58,48 49,60 38,65 C35,66 29,66 26,65 C15,60 6,48 6,32 C6,16 16,4 32,4 Z"
+        fill="url(#ballGD)"/>
+  <path d="M14,12 C14,7 19,4 24,5 C28,6 30,9 29,13 C28,17 24,18 20,17 C16,16 14,18 14,12 Z"
+        fill="white" opacity="0.38"/>
+  <path d="M27,65 C24,68 23,72 26,73 C29,74 31,71 31,68" fill="#7C3AED"/>
+  <path d="M35,65 C38,68 39,72 36,73 C33,74 31,71 31,68" fill="#7C3AED"/>
+  <path d="M52,2 L53.4,6.2 L58,6.2 L54.5,8.8 L55.9,13 L52,10.3 L48.1,13 L49.5,8.8 L46,6.2 L50.6,6.2 Z"
+        fill="#FCD34D"/>
+  <circle cx="3"  cy="38" r="2.2" fill="#F9A8D4" opacity="0.75"/>
+  <circle cx="60" cy="44" r="1.8" fill="#FCD34D"  opacity="0.70"/>
+
+  <text x="68" y="40"
+        font-family="'Segoe UI Semibold','Helvetica Neue',Arial,sans-serif"
+        font-size="32" font-weight="700"
+        fill="#DDD6FE" letter-spacing="-0.5">Happy</text>
+  <rect x="68" y="44" width="36" height="2" rx="1" fill="#2DD4BF"/>
+  <text x="68" y="62"
+        font-family="'Segoe UI','Helvetica Neue',Arial,sans-serif"
+        font-size="13" font-weight="400"
+        fill="#E5E7EB" letter-spacing="3">EVENT PLANNER</text>
+</svg>
