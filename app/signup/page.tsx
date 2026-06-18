@@ -39,7 +39,7 @@ export default function SignupPage() {
         .eq('id', user.id);
     }
 
-    router.push('/account');
+    router.push('/')  // Takes them home, already logged in ✅
   };
 
   const set = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) =>
