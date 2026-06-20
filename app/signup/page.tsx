@@ -21,7 +21,7 @@ export default function SignupPage() {
       options: {
         data: {
           full_name: `${form.firstName} ${form.lastName}`,
-          role: 'customer',  // always customer — never admin via signup
+          role: 'customer',
         },
       },
     });
@@ -32,34 +32,33 @@ export default function SignupPage() {
       return;
     }
 
-    // Update phone in profiles table
     const { data: { user } } = await supabase.auth.getUser();
     if (user) {
       await supabase.from('profiles').update({ phone: form.phone, whatsapp_number: form.phone })
         .eq('id', user.id);
     }
 
-    router.push('/')  // Takes them home, already logged in ✅
+    router.push('/')
   };
 
   const set = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) =>
     setForm(prev => ({ ...prev, [field]: e.target.value }));
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="flex w-full max-w-3xl shadow-lg rounded-2xl overflow-hidden bg-white">
-        
-        {/* Left panel */}
-        <div className="hidden md:flex w-64 flex-col justify-between p-8"
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-8">
+      <div className="flex flex-col md:flex-row w-full max-w-3xl shadow-lg rounded-2xl overflow-hidden bg-white">
+
+        {/* Left panel — hidden on mobile, visible from md up */}
+        <div className="hidden md:flex w-full md:w-64 flex-col justify-between p-8 gap-6"
           style={{ background: 'linear-gradient(145deg,#6C47C9 0%,#3B2891 40%,#1D9E75 100%)' }}>
           <div className="bg-white rounded-2xl px-6 py-5 w-fit shadow-sm">
-  <img src="/logo.svg" alt="Happy Event Planner" className="h-18 w-auto" />
-</div>
-<p className="text-white/90 text-lg font-medium leading-relaxed">
-  Join the Lahore families who trust us to make <span className="text-teal-300">every celebration</span> unforgettable
-</p>
-<div className="space-y-2">
-  {[['🎁','Free delivery on your first order'],['📦','Track every order in real time'],['⭐','Early access to Eid & seasonal sales']]
+            <img src="/logo.svg" alt="Happy Event Planner" className="h-18 w-auto" />
+          </div>
+          <p className="text-white/90 text-lg font-medium leading-relaxed">
+            Join the Lahore families who trust us to make <span className="text-teal-300">every celebration</span> unforgettable
+          </p>
+          <div className="space-y-2">
+            {[['🎁','Free delivery on your first order'],['📦','Track every order in real time'],['⭐','Early access to Eid & seasonal sales']]
               .map(([icon,text]) => (
               <div key={text} className="flex items-center gap-2 bg-white/10 rounded-lg px-3 py-2 text-white/85 text-xs">
                 <span>{icon}</span>{text}
@@ -69,7 +68,7 @@ export default function SignupPage() {
         </div>
 
         {/* Right panel */}
-        <div className="flex-1 p-8 flex flex-col justify-center">
+        <div className="flex-1 p-6 md:p-8 flex flex-col justify-center min-w-0">
           <div className="flex gap-0 border border-gray-200 rounded-lg overflow-hidden w-fit mb-6">
             <Link href="/login" className="px-5 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50">Login</Link>
             <span className="px-5 py-2 text-sm font-medium text-white" style={{background:'#6C47C9'}}>Sign up</span>

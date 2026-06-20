@@ -67,30 +67,40 @@ export default function Header() {
         borderBottom: '1px solid var(--color-border)',
       }}
     >
-      <div className="container" style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.875rem 1rem' }}>
+      <div
+        className="container"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+          padding: '0.875rem 1rem',
+          minWidth: 0, // allows children to shrink instead of overflowing
+        }}
+      >
 
-        {/* ✅ FIXED: removed display:'none' — CSS handles hide/show via data-mobile-only */}
         <button
           aria-label="Toggle menu"
           onClick={() => setMobileOpen((v) => !v)}
           className="btn btn-ghost btn-sm"
-          style={{ padding: '0.5rem' }}
+          style={{ padding: '0.5rem', flexShrink: 0 }}
           data-mobile-only
         >
           <MenuIcon open={mobileOpen} />
         </button>
 
-        <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', flexShrink: 0 }}>
+        {/* Logo — allowed to shrink on small screens */}
+        <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', flexShrink: 1, minWidth: 0 }}>
           <img
             src="/logo.svg"
             alt="Happy Event Planner — Balloons, Candles and Decor, Lahore"
             height={52}
             width={219}
-            style={{ display: 'block', flexShrink: 0 }}
+            style={{ display: 'block', height: '38px', width: 'auto', maxWidth: '160px' }}
+            className="header-logo"
           />
         </Link>
 
-        <nav style={{ gap: '1.5rem', marginLeft: '1.5rem' }} data-desktop-only>
+        <nav style={{ gap: '1.5rem', marginLeft: '1.5rem', flexShrink: 0 }} data-desktop-only>
           {navLinks.map((link) => (
             <Link
               key={link.label}
@@ -108,12 +118,11 @@ export default function Header() {
           ))}
         </nav>
 
-        <div style={{ flex: 1 }} />
+        <div style={{ flex: 1, minWidth: '0.25rem' }} />
 
-        {/* ✅ FIXED: removed display:'none' from inline style — data-desktop-only CSS handles it */}
         <form
           action="/products"
-          style={{ alignItems: 'center', position: 'relative', width: '260px' }}
+          style={{ alignItems: 'center', position: 'relative', width: '260px', flexShrink: 0 }}
           data-desktop-only
         >
           <input
@@ -133,72 +142,74 @@ export default function Header() {
           </button>
         </form>
 
-        {/* ✅ FIXED: removed display:'none' */}
-        <button
-          aria-label="Search"
-          onClick={() => setSearchOpen((v) => !v)}
-          className="btn btn-ghost btn-sm"
-          style={{ padding: '0.5rem' }}
-          data-mobile-only
-        >
-          <SearchIcon />
-        </button>
+        {/* Right cluster — never shrinks, never wraps off-screen */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', flexShrink: 0 }}>
+          <button
+            aria-label="Search"
+            onClick={() => setSearchOpen((v) => !v)}
+            className="btn btn-ghost btn-sm"
+            style={{ padding: '0.5rem' }}
+            data-mobile-only
+          >
+            <SearchIcon />
+          </button>
 
-        <Link
-          href="/cart"
-          aria-label="Cart"
-          className="btn btn-ghost btn-sm"
-          style={{ position: 'relative', padding: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}
-        >
-          <CartIcon />
-          <span style={{ fontSize: 'var(--text-sm)', fontWeight: 600 }} data-desktop-only>Cart</span>
-          {cartCount > 0 && (
-            <span
-              style={{
-                position: 'absolute',
-                top: '-2px',
-                right: '-2px',
-                backgroundColor: 'var(--color-brand-purple)',
-                color: '#fff',
-                fontSize: '0.65rem',
-                fontWeight: 700,
-                borderRadius: 'var(--radius-full)',
-                minWidth: '1.1rem',
-                height: '1.1rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '0 0.2rem',
-              }}
+          <Link
+            href="/cart"
+            aria-label="Cart"
+            className="btn btn-ghost btn-sm"
+            style={{ position: 'relative', padding: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.35rem', flexShrink: 0 }}
+          >
+            <CartIcon />
+            <span style={{ fontSize: 'var(--text-sm)', fontWeight: 600 }} data-desktop-only>Cart</span>
+            {cartCount > 0 && (
+              <span
+                style={{
+                  position: 'absolute',
+                  top: '-2px',
+                  right: '-2px',
+                  backgroundColor: 'var(--color-brand-purple)',
+                  color: '#fff',
+                  fontSize: '0.65rem',
+                  fontWeight: 700,
+                  borderRadius: 'var(--radius-full)',
+                  minWidth: '1.1rem',
+                  height: '1.1rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '0 0.2rem',
+                }}
+              >
+                {cartCount}
+              </span>
+            )}
+          </Link>
+
+          <Button
+            as="a"
+            href={buildWhatsAppURL()}
+            target="_blank"
+            onClick={handleWhatsAppClick}
+            variant="whatsapp"
+            size="sm"
+            style={{ flexShrink: 0 }}
+            data-desktop-only
+          >
+            <WhatsAppIcon size={18} style={{ marginRight: '0.4rem', verticalAlign: 'middle' }} /> WhatsApp
+          </Button>
+
+          {isLoggedIn && (
+            <button
+              onClick={handleLogout}
+              className="btn btn-ghost btn-sm"
+              style={{ fontSize: 'var(--text-sm)', fontWeight: 600, padding: '0.4rem 0.75rem', flexShrink: 0 }}
+              data-desktop-only
             >
-              {cartCount}
-            </span>
+              Logout
+            </button>
           )}
-        </Link>
-
-        {/* ✅ FIXED: removed display:'none' from inline style */}
-        <Button
-          as="a"
-          href={buildWhatsAppURL()}
-          target="_blank"
-          onClick={handleWhatsAppClick}
-          variant="whatsapp"
-          size="sm"
-          style={{}}
-          data-desktop-only
-        >
-          <WhatsAppIcon size={18} style={{ marginRight: '0.4rem', verticalAlign: 'middle' }} /> WhatsApp
-        </Button>
-
-        {/* ✅ FIXED: removed display:'none' from inline style */}
-        <button
-          onClick={handleLogout}
-          className="btn btn-ghost btn-sm"
-          style={{ fontSize: 'var(--text-sm)', fontWeight: 600, padding: '0.4rem 0.75rem' }}
-          data-desktop-only
-        >
-          Logout
-        </button>
+        </div>
       </div>
 
       {searchOpen && (
@@ -260,13 +271,16 @@ export default function Header() {
             >
               <WhatsAppIcon size={18} style={{ marginRight: '0.4rem', verticalAlign: 'middle' }} /> Order via WhatsApp
             </Button>
-            <button
-              onClick={handleLogout}
-              className="btn btn-ghost"
-              style={{ marginTop: '0.75rem', textAlign: 'left', fontWeight: 600 }}
-            >
-              Logout
-            </button>
+
+            {isLoggedIn && (
+              <button
+                onClick={handleLogout}
+                className="btn btn-ghost"
+                style={{ marginTop: '0.75rem', textAlign: 'left', fontWeight: 600 }}
+              >
+                Logout
+              </button>
+            )}
           </div>
         </nav>
       )}
@@ -277,6 +291,7 @@ export default function Header() {
         @media (min-width: 768px) {
           [data-desktop-only] { display: flex !important; }
           [data-mobile-only] { display: none !important; }
+          .header-logo { height: 52px !important; max-width: none !important; }
         }
       `}</style>
     </header>

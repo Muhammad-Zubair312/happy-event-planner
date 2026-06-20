@@ -25,15 +25,12 @@ export default function LoginPage() {
       return;
     }
 
-    // Fetch role from profiles table
     const { data: profile } = await supabase
       .from('profiles')
       .select('role')
       .eq('id', data.user.id)
       .single();
 
-    // Use window.location.href (full page reload) instead of router.push
-    // This ensures cookies are fully committed before middleware runs on the next request
     if (profile?.role === 'admin') {
       window.location.href = '/admin';
     } else {
@@ -42,20 +39,20 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="flex w-full max-w-3xl shadow-lg rounded-2xl overflow-hidden bg-white">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-8">
+      <div className="flex flex-col md:flex-row w-full max-w-3xl shadow-lg rounded-2xl overflow-hidden bg-white">
 
-        {/* Left panel */}
-        <div className="hidden md:flex w-64 flex-col justify-between p-8"
+        {/* Left panel — hidden on mobile, visible from md up */}
+        <div className="hidden md:flex w-full md:w-64 flex-col justify-between p-8 gap-6"
           style={{ background: 'linear-gradient(145deg,#6C47C9 0%,#3B2891 40%,#1D9E75 100%)' }}>
-<div className="bg-white rounded-2xl px-6 py-5 w-fit shadow-sm">
-  <img src="/logo.svg" alt="Happy Event Planner" className="h-18 w-auto" />
-</div>
-<p className="text-white/90 text-lg font-medium leading-relaxed">
-  Lahore's <span className="text-teal-300">#1 choice</span> for balloons, candles & event decor — good to see you again
-</p>
-<div className="space-y-2">
-  {[['🚚', 'Same-day delivery across Lahore'], ['🔒', 'Secure JazzCash & EasyPaisa checkout'], ['💬', 'Real support on WhatsApp, always']]
+          <div className="bg-white rounded-2xl px-6 py-5 w-fit shadow-sm">
+            <img src="/logo.svg" alt="Happy Event Planner" className="h-18 w-auto" />
+          </div>
+          <p className="text-white/90 text-lg font-medium leading-relaxed">
+            Lahore&apos;s <span className="text-teal-300">#1 choice</span> for balloons, candles & event decor — good to see you again
+          </p>
+          <div className="space-y-2">
+            {[['🚚', 'Same-day delivery across Lahore'], ['🔒', 'Secure JazzCash & EasyPaisa checkout'], ['💬', 'Real support on WhatsApp, always']]
               .map(([icon, text]) => (
                 <div key={text} className="flex items-center gap-2 bg-white/10 rounded-lg px-3 py-2 text-white/85 text-xs">
                   <span>{icon}</span>{text}
@@ -65,7 +62,7 @@ export default function LoginPage() {
         </div>
 
         {/* Right panel */}
-        <div className="flex-1 p-8 flex flex-col justify-center">
+        <div className="flex-1 p-6 md:p-8 flex flex-col justify-center min-w-0">
           <div className="flex gap-0 border border-gray-200 rounded-lg overflow-hidden w-fit mb-6">
             <span className="px-5 py-2 text-sm font-medium text-white" style={{ background: '#6C47C9' }}>Login</span>
             <Link href="/signup" className="px-5 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50">Sign up</Link>
