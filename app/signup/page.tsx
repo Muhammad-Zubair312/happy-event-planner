@@ -48,8 +48,8 @@ export default function SignupPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-8">
       <div className="flex flex-col md:flex-row w-full max-w-3xl shadow-lg rounded-2xl overflow-hidden bg-white">
 
-        {/* Left panel — now visible on mobile too, stacked on top */}
-        <div className="flex w-full md:w-64 flex-col justify-between p-6 md:p-8 gap-5"
+        {/* Left panel — hidden on mobile, visible from md up */}
+        <div className="hidden md:flex w-full md:w-64 flex-col justify-between p-8 gap-6"
           style={{ background: 'linear-gradient(145deg,#6C47C9 0%,#3B2891 40%,#1D9E75 100%)' }}>
           <div className="bg-white rounded-2xl px-6 py-5 w-fit shadow-sm">
             <img src="/logo.svg" alt="Happy Event Planner" className="h-18 w-auto" />
